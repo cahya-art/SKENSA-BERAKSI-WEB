@@ -1,111 +1,166 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bg-[#F8FAFC] min-h-screen pb-20">
-        <!-- Header Ringkas -->
-        <div class="max-w-4xl mx-auto px-6 pt-12 pb-8">
-            <h1 class="text-3xl font-bold text-[#2D5A7B] mb-2">Ceritakan Masalahmu</h1>
-            <p class="text-gray-500">Suaramu sangat berarti. Setiap laporan akan kami jaga kerahasiaannya demi kenyamanan
-                bersama.</p>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<div class="bg-[#F8FAFC] border-gray min-h-screen font-['Plus_Jakarta_Sans',sans-serif]">
+
+    <div class="bg-[#4A7C8C] rounded-b-[100px] md:rounded-b-[200px] px-6 md:px-12 py-12 md:py-16 text-center text-white shadow-lg relative overflow-hidden">
+        <div class="max-w-3xl mx-auto relative z-10">
+            <h1 class="text-2xl md:text-3xl font-bold mb-4">
+                Kami Ada Untukmu
+            </h1>
+            <p class="text-sm md:text-base text-white/90 leading-relaxed">
+                Suaramu adalah langkah pertama menuju perubahan. Ceritakan apa yang terjadi dalam<br class="hidden md:block">
+                lingkungan yang aman dan terjaga kerahasiaannya.
+            </p>
         </div>
+    </div>
 
-        <div class="max-w-4xl mx-auto px-6">
-            <div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
-                <div class="p-8 md:p-12">
+    <div class="bg-[#F8FAFC] max-w-7xl mx-auto px-6 md:px-12 pt-12 pb-16">
+        
+        @if(session('success'))
+            <div class="max-w-7xl mx-auto mb-6 flex items-center p-4 text-sm text-green-800 border border-green-200 rounded-2xl bg-green-50 shadow-sm animate-fade-in" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                </svg>
+                <div class="font-medium">{{ session('success') }}</div>
+            </div>
+        @endif
 
-                    @if(session('success'))
-                        <div class="flex items-center p-4 mb-6 text-sm text-green-800 border border-green-300 rounded-2xl bg-green-50 shadow-sm transition-all animate-pulse"
-                            role="alert">
-                            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor" viewBox="0 0 20 20">
-                                <path
-                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                            </svg>
-                            <div>
-                                <span class="font-bold">Berhasil!</span> {{ session('success') }}
-                            </div>
-                        </div>
-                    @endif
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
+            
+            <div class="lg:col-span-2 bg-white rounded-3xl shadow-xl p-8 md:p-10">
+                
+                {{-- LOGIKA 1: JIKA USER SUDAH LOGIN (FORMULIR TERBUKA LEBAR) --}}
+                @auth
+                    <h2 class="text-[#2D5A7B] font-bold text-xl md:text-2xl mb-2">
+                        Formulir Laporan
+                    </h2>
+                    <p class="text-gray-600 text-sm mb-6">
+                        Mohon isi detail kejadian dengan sejujur-jujurnya untuk membantu kami menindaklanjuti.
+                    </p>
 
-                    <form action="{{ route('report.store') }}" method="POST">
+                    <form method="POST" action="{{ route('report.store') }}" class="space-y-5">
                         @csrf
-                        <!-- Baris Atas: Judul & Kategori -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                            <div>
-                                <label class="block text-sm font-bold text-gray-700 mb-3">Judul Cerita / Kejadian</label>
-                                <input type="text" name="judul" placeholder="Berikan judul singkat..."
-                                    class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 focus:outline-none focus:border-[#2D5A7B] focus:bg-white transition-all">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-bold text-gray-700 mb-3">Kategori Perundungan</label>
-                                <select name="kategori"
-                                    class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 focus:outline-none focus:border-[#2D5A7B] focus:bg-white transition-all appearance-none">
-                                    <option value="verbal">Perundungan Verbal</option>
-                                    <option value="fisik">Perundungan Fisik</option>
-                                    <option value="sosial">Perundungan Sosial</option>
-                                    <option value="cyber">Cyber Bullying</option>
-                                </select>
-                            </div>
-                        </div>
 
-                        <!-- Area Cerita -->
-                        <div class="mb-8">
-                            <label class="block text-sm font-bold text-gray-700 mb-3">Isi Cerita Lengkap</label>
-                            <textarea name="cerita" rows="6" placeholder="Ceritakan apa yang terjadi, di mana, dan kapan..."
-                                class="w-full bg-gray-50 border border-gray-100 rounded-[2rem] px-6 py-5 focus:outline-none focus:border-[#2D5A7B] focus:bg-white transition-all"></textarea>
-                        </div>
-
-                        <!-- Opsi Anonimitas -->
-                        <div class="bg-[#F0F7F7] p-6 rounded-[2rem] mb-10 flex items-center justify-between">
-                            <div class="flex items-center gap-4">
-                                <div
-                                    class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#2D5A7B] shadow-sm">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-[#2D5A7B] text-sm">Kirim sebagai Anonim</h4>
-                                    <p class="text-[11px] text-gray-500">Namamu tidak akan diperlihatkan kepada siapapun.
-                                    </p>
-                                </div>
-                            </div>
-                            <label class="relative inline-flex items-center cursor-pointer">
-                                <input type="checkbox" name="is_anonymous" value="1" class="sr-only peer" checked>
-                                <div
-                                    class="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[10px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#2D5A7B]">
-                                </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold text-sm mb-2">
+                                Judul Laporan
                             </label>
+                            <input type="text" name="judul" required value="{{ old('judul') }}"
+                                placeholder="Berikan judul singkat tentang kejadian..."
+                                class="w-full bg-[#F8F9FA] text-gray-800 px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#4A7C8C] focus:border-transparent text-sm placeholder-gray-400">
+                            @error('judul')
+                                <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
+                            @enderror
                         </div>
 
-                        <!-- Tombol Aksi -->
-                        <div class="flex flex-col md:flex-row gap-4">
-                            <button type="submit"
-                                class="flex-1 bg-[#2D5A7B] text-white py-4 rounded-2xl font-bold hover:bg-[#244a66] shadow-lg shadow-teal-900/10 transition-all flex items-center justify-center gap-3">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                        <div>
+                            <label class="block text-gray-700 font-semibold text-sm mb-2">
+                                Ceritakan Kejadiannya
+                            </label>
+                            <textarea name="isi_cerita" required rows="12" 
+                                placeholder="Jelaskan secara detail: apa yang terjadi, kapan, di mana, dan siapa saja yang terlibat..."
+                                class="w-full bg-[#F8F9FA] text-gray-800 px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#4A7C8C] focus:border-transparent text-sm placeholder-gray-400 resize-none">{{ old('isi_cerita') }}</textarea>
+                            @error('isi_cerita')
+                                <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="pt-2">
+                            <button type="submit" class="bg-[#4A7C8C] hover:bg-[#3D6A7A] text-white font-bold px-8 py-3 rounded-xl text-sm transition-all shadow-md flex items-center gap-2">
+                                Kirim Laporan
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                                 </svg>
-                                Kirim Cerita Sekarang
-                            </button>
-                            <button type="button"
-                                class="px-10 py-4 bg-white border border-gray-200 text-gray-500 rounded-2xl font-bold hover:bg-gray-50 transition-all">
-                                Simpan Draft
                             </button>
                         </div>
                     </form>
-                </div>
+                @endauth
+
+                {{-- LOGIKA 2: JIKA USER ADALAH TAMU (FORMULIR DIKUNCI & TAMPILKAN VISUAL ASLIMU) --}}
+                @guest
+                    <div class="max-w-md mx-auto my-12 text-center">
+                        <div class="text-5xl mb-4">🔒</div>
+                        <h2 class="text-xl font-bold text-slate-800 mb-2">Akses Terbatas</h2>
+                        <p class="text-sm text-gray-500 mb-6 leading-relaxed">
+                            Untuk melaporkan tindakan perundungan, silakan daftarkan akun sekolahmu terlebih dahulu demi validitas data laporan.
+                        </p>
+                        <a href="{{ route('register') }}" class="inline-block w-full py-3.5 px-4 bg-[#4A7C8C] hover:bg-[#3D6A7A] text-white font-bold rounded-xl text-sm transition-all shadow-md">
+                            Buat Akun Sekarang
+                        </a>
+                    </div>
+                @endguest
+                
             </div>
 
-            <!-- Info Tambahan -->
-            <div class="mt-8 flex items-center gap-3 text-sm text-gray-400 justify-center">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Data kamu dienkripsi secara aman dalam sistem kami.
+            <div class="space-y-6">
+                
+                <div class="bg-[#E8F4F8] rounded-3xl shadow-lg p-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <svg class="w-5 h-5 text-[#4A7C8C]" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                        </svg>
+                        <h3 class="text-[#2D5A7B] font-bold text-base">
+                            Tips Melapor Aman
+                        </h3>
+                    </div>
+                    
+                    <div class="space-y-3 text-xs text-gray-700">
+                        <div class="flex gap-2">
+                            <svg class="w-4 h-4 text-[#4A7C8C] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <p>Pastikan Anda berada di tempat yang tenang dan privat saat filling laporan ini.</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <svg class="w-4 h-4 text-[#4A7C8C] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <p>Lampirkan bukti berupa foto atau tangkapan layar jika ada (dapat dilakukan setelah laporan dibuat).</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <svg class="w-4 h-4 text-[#4A7C8C] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <p>Gunakan fitur anonim jika Anda merasa kurang nyaman memberikan identitas langsung.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[#FF4D4D] rounded-3xl shadow-lg p-6 text-white">
+                    <div class="flex items-center gap-2 mb-3">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                        </svg>
+                        <h3 class="font-bold text-base">
+                            Butuh Bantuan Segera?
+                        </h3>
+                    </div>
+                    <p class="text-xs text-white/90 mb-4">
+                        Jika Anda merasa terancam secara fisik, hubungi tim keamanan sekolah atau hotline darurat kami.
+                    </p>
+                    <div class="flex items-center gap-2 bg-white/20 rounded-lg px-3 py-2.5 backdrop-blur-sm">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                        </svg>
+                        <span class="font-bold text-lg">0822-6631-0512</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-lg overflow-hidden">
+                    <img src="{{ asset('images/library.png') }}" alt="School Library" class="w-full h-48 object-cover">
+                    <div class="p-4 bg-gradient-to-t from-black/60 to-transparent -mt-20 relative">
+                        <p class="text-white text-sm font-medium">
+                            Lingkungan sekolah yang sehat dimulai dari<br>keberanianmu.
+                        </p>
+                    </div>
+                </div>
             </div>
+            
         </div>
     </div>
+
+</div>
 @endsection

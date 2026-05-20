@@ -17,15 +17,12 @@
 
 <body class="bg-[#F8FAFC]">
 
-    <!-- NAVBAR (Berdasarkan Gambar 2 & 3) -->
     <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <!-- Logo -->
+        <div class="max-w-8xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <span class="font-bold text-xl text-[#2D5A7B]">Skensa Beraksi</span>
             </div>
 
-            <!-- Nav Links -->
             <div class="hidden md:flex items-center gap-10 text-sm font-medium text-gray-500">
 
                 <a href="{{ route('edukasi') }}"
@@ -45,38 +42,60 @@
 
             </div>
 
-            <!-- User Actions -->
-            <div class="flex items-center gap-5">
-                <button class="text-gray-400 hover:text-[#2D5A7B]">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                    </svg>
-                </button>
-                <button class="text-gray-400 hover:text-[#2D5A7B]">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                </button>
-                <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden border border-teal-500 p-0.5">
-                    <img src="https://ui-avatars.com/api/?name=Siswa+Skensa&background=2D5A7B&color=fff" alt="Profile">
-                </div>
+            <div class="flex items-center gap-4">
+
+                {{-- 1. JIKA USER SUDAH LOGIN (Siswa atau Admin) --}}
+                @auth
+                    {{-- Tombol Dashboard Admin (Hanya muncul jika yang login punya role admin) --}}
+                    @if (auth()->user()->role === 'admin')
+                    <a href="{{ route('admin.dashboard') }}"
+                        class="text-gray-600 hover:text-[#2D5A7B] transition-colors p-2 bg-gray-100 rounded-full"
+                        title="Masuk Halaman Admin">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                            </path>
+                        </svg>
+                    </a>
+                    @endif
+
+                    {{-- Form Tombol Logout (Dipasang tepat sebelum photo profile) --}}
+                    <form method="POST" action="{{ route('logout') }}" class="inline">
+                        @csrf
+                        <button type="submit" class="text-sm font-medium text-gray-500 hover:text-red-600 transition-colors flex items-center gap-1 px-2.5 py-1.5 rounded-lg hover:bg-red-50" title="Keluar Akun">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"></path>
+                            </svg>
+                            <span class="hidden sm:inline">Keluar</span>
+                        </button>
+                    </form>
+
+                    {{-- Foto Profil User --}}
+                    <img src="{{ asset('images/profile.png') }}" class="w-9 h-9 rounded-full object-cover border border-gray-100 shadow-sm" title="{{ auth()->user()->name }}">
+                @endauth
+
+                {{-- 2. JIKA USER ADALAH TAMU (Belum Login) --}}
+                @guest
+                    <div class="flex items-center gap-3">
+                        <a href="{{ route('login') }}" class="text-sm font-semibold text-[#2D5A7B] hover:text-[#224660] transition-colors">
+                            Masuk
+                        </a>
+                        <a href="{{ route('register') }}" class="text-sm font-semibold bg-[#2D5A7B] text-white px-4 py-2 rounded-xl shadow-md hover:bg-[#224660] transition-colors">
+                            Daftar
+                        </a>
+                    </div>
+                @endguest
+
             </div>
         </div>
     </nav>
 
-    <!-- CONTENT -->
     <main>
         @yield('content')
     </main>
 
-    <!-- FOOTER (Berdasarkan Gambar 2) -->
     <footer class="bg-white border-t border-gray-100 pt-16 pb-8 mt-20">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
-            <!-- Brand -->
             <div>
                 <h3 class="font-bold text-xl text-[#2D5A7B] mb-4">Skensa Beraksi</h3>
                 <p class="text-sm text-gray-500 leading-relaxed">
@@ -85,7 +104,6 @@
                 </p>
             </div>
 
-            <!-- Tautan Dukungan -->
             <div>
                 <h4 class="font-bold text-gray-800 mb-5">Tautan Dukungan</h4>
                 <ul class="space-y-3 text-sm text-gray-500">
@@ -95,14 +113,12 @@
                 </ul>
             </div>
 
-            <!-- Komunitas -->
             <div>
                 <h4 class="font-bold text-gray-800 mb-5">Komunitas</h4>
                 <div class="flex gap-4">
                     <div class="w-10 h-10 bg-[#F0F7F7] rounded-full flex items-center justify-center text-[#2D5A7B]">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm-1-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm5 7h-2v-6h2v6zm-1-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z" />
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm-1-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm5 7h-2v-6h2v6zm-1-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z" />
                         </svg>
                     </div>
                     <div class="w-10 h-10 bg-[#F0F7F7] rounded-full flex items-center justify-center text-[#2D5A7B]">
@@ -119,5 +135,4 @@
     </footer>
 
 </body>
-
 </html>
