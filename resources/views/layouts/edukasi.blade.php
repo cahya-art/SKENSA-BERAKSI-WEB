@@ -24,8 +24,10 @@
                             Perundungan bukan sekadar ejekan biasa. Ini adalah tindakan agresif yang dilakukan secara sengaja dan berulang. Mengenalinya adalah langkah pertama untuk menghentikannya.
                         </p>
                     </div>
-                    <button class="bg-[#2D5A7B] text-white px-8 py-3 rounded-xl font-semibold w-fit hover:bg-[#244a66] transition-all">
-                        Pelajari Selengkapnya
+                    <button>
+                        <a href="https://www.alodokter.com/bullying" target="_blank" class="bg-[#2D5A7B] text-white px-8 py-3 rounded-xl font-semibold w-fit hover:bg-[#244a66] transition-all inline-block">
+                            Pelajari Selengkapnya
+                        </a>
                     </button>
                 </div>
 
@@ -85,37 +87,55 @@
     </section>
 
     <!-- Video Section -->
-    <section class="max-w-6xl mx-auto px-6 py-20">
-        <div class="flex justify-between items-center mb-10">
-            <h2 class="text-2xl font-bold text-[#2D5A7B]">Video Edukasi Bullying</h2>
-            <a href="#" class="text-sm font-semibold text-gray-500 hover:text-[#2D5A7B] flex items-center gap-2">
-                Lihat Semua <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-            </a>
-        </div>
+<section class="max-w-6xl mx-auto px-6 py-20">
+    <div class="flex justify-between items-center mb-10">
+        <h2 class="text-2xl font-bold text-[#2D5A7B]">Video Edukasi Bullying</h2>
+    </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Video Card Loop -->
-            @for ($i = 0; $i < 3; $i++)
-            <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-gray-100 group cursor-pointer hover:shadow-md transition-all">
-                <div class="relative aspect-video bg-gray-200">
-                    <!-- Placeholder Image (Sesuai Asset Kamu) -->
-                    <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
-                    <!-- Play Button -->
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <div class="w-14 h-14 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                            <svg class="w-6 h-6 text-[#2D5A7B] fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-                        </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <a href="https://youtu.be/K3mAWQti0gU" target="_blank" class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-gray-100 group cursor-pointer hover:shadow-md transition-all">
+            <div class="relative aspect-video bg-gray-200">
+                <img src="https://img.youtube.com/vi/K3mAWQti0gU/mqdefault.jpg" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-14 h-14 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-[#2D5A7B] fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
                     </div>
                 </div>
-                <div class="p-6 text-left">
-                    <h4 class="font-bold text-gray-800 mb-2">Apa itu bullying?</h4>
-                    <p class="text-[12px] text-gray-400 leading-relaxed">
-                        Yuk cari tahu apa itu bullying dan apa dampak-dampak dari bullying bagi kesehatan mental...
-                    </p>
+            </div>
+            <div class="p-6 text-left">
+                <h4 class="font-bold text-gray-800 mb-2">Apa itu bullying?</h4>
+                <p class="text-[12px] text-gray-400 leading-relaxed">Yuk cari tahu apa itu bullying dan apa dampak-dampak dari bullying bagi kesehatan mental...</p>
+            </div>
+        </a>
+
+        <a href="https://youtu.be/am3sGO12f6Q" target="_blank" class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-gray-100 group cursor-pointer hover:shadow-md transition-all">
+            <div class="relative aspect-video bg-gray-200">
+                <img src="https://img.youtube.com/vi/am3sGO12f6Q/mqdefault.jpg" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-14 h-14 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-[#2D5A7B] fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                    </div>
                 </div>
             </div>
-            @endfor
-        </div>
-    </section>
-</div>
-@endsection
+            <div class="p-6 text-left">
+                <h4 class="font-bold text-gray-800 mb-2">Dampak Perundungan</h4>
+                <p class="text-[12px] text-gray-400 leading-relaxed">Memahami betapa bahayanya dampak perundungan bagi masa depan generasi muda...</p>
+            </div>
+        </a>
+
+        <a href="https://youtu.be/Ri9XTxb1T5I" target="_blank" class="bg-white rounded-[2rem] overflow-hidden shadow-sm border border-gray-100 group cursor-pointer hover:shadow-md transition-all">
+            <div class="relative aspect-video bg-gray-200">
+                <img src="https://img.youtube.com/vi/Ri9XTxb1T5I/mqdefault.jpg" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-14 h-14 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-[#2D5A7B] fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 text-left">
+                <h4 class="font-bold text-gray-800 mb-2">Stop Bullying Sekarang</h4>
+                <p class="text-[12px] text-gray-400 leading-relaxed">Mari bersama-sama menciptakan lingkungan sekolah yang aman tanpa kekerasan...</p>
+            </div>
+        </a>
+    </div>
+</section>
